@@ -35,14 +35,14 @@ INSTALLATION
 ------------
 
 
-### Install via Git
+### DOWNLOAD VIA GIT
 
     https://github.com/gimox/foxboApi.git
     php composer.phar update
 
 
 
-### FOXBOX  configuration
+### FOXBOX CONFIGURATION
 
 
 
@@ -62,11 +62,14 @@ replace step with:
 4. enable new virtualhost: a2ensite foxboxApiSSL
 
 
-#To test it go to:
+### CHECK
+http
+
 http://foxboxip:8081
 
 
 SSL
+
 https://foxboxip:8082
 
 
