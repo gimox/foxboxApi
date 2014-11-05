@@ -1,15 +1,17 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
+$url = require(__DIR__ . '/url.php');
 
 $config = [
-    'id' => 'basic',
+    'id' => 'foxboxApi',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'nOhpJg7LBv_odlecKbSTz5t3Ncqblcog',
+            'enableCsrfValidation' => false,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -30,6 +32,15 @@ $config = [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'urlManager'   => [
+            'class'               => 'yii\web\UrlManager',
+            'enablePrettyUrl'     => true,
+            'enableStrictParsing' => false,
+            'suffix'              => false,
+            'showScriptName'      => false,
+            'rules'               => $url
+
         ],
         'db' => require(__DIR__ . '/db.php'),
     ],

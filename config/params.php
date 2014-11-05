@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
+    'apiKey'=>'456rtghtyvdeERmBT23'
 ];

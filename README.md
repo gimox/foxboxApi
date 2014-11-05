@@ -54,7 +54,8 @@ INSTALLATION
 6. add right  assets: chown -R www-data:www-data /mnt/flash/foxboxApi/web/assets
 7. add right to runtime:  chown -R www-data:www-data /mnt/flash/foxboxApi/runtime
 8. sudo service apache2 restart
-
+9. change a config option in /etc/smsd.conf  -> set: trust_outgoing = no (line 25) 
+10. /etc/init.d/smstools restart
 
 SSL Version
 replace step with:

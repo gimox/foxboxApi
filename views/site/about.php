@@ -9,7 +9,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        written by Giorgio Modoni - modogio@gmail.com
+        Written by Giorgio Modoni - modogio@gmail.com
 
     <div>GitHub</div>
     <code>https://github.com/gimox/foxboApi</code>
