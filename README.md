@@ -25,8 +25,9 @@ DIRECTORY STRUCTURE
 REQUIREMENTS
 ------------
 
->Foxbox
->Tested with FoxBox GT
+Foxbox
+
+Tested with FoxBox GT
 
 
 
@@ -36,8 +37,8 @@ INSTALLATION
 
 ### Install via Git
 
-https://github.com/gimox/foxboApi.git
-php composer.phar update
+    https://github.com/gimox/foxboApi.git
+    php composer.phar update
 
 
 
@@ -61,11 +62,12 @@ replace step with:
 4. enable new virtualhost: a2ensite foxboxApiSSL
 
 
->to test it go to:
->http://foxboxip:8081
->
->SSL
->https://foxboxip:8082
+#To test it go to:
+http://foxboxip:8081
+
+
+SSL
+https://foxboxip:8082
 
 
 
@@ -73,4 +75,4 @@ IMPORTANT INFO
 --------------
 For security reason, Foxbox can't be in WWW. It must be under firewall and accessible only by application server in Https.
 
->this version is not in release yet, please don't use it now.
+this version is not in release yet, please don't use it now.
