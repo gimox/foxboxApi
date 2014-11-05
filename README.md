@@ -1,12 +1,8 @@
-Yii 2 Basic Application Template
+FOXBOX API WEB SERVICE
 ================================
 
-Yii 2 Basic Application Template is a skeleton Yii 2 application best for
-rapidly creating small projects.
+Add custom WebService for FoxBox device
 
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
 
 
 DIRECTORY STRUCTURE
@@ -29,61 +25,50 @@ DIRECTORY STRUCTURE
 REQUIREMENTS
 ------------
 
-The minimum requirement by this application template that your Web server supports PHP 5.4.0.
+Foxbox
+Tested with FoxBox GT
+
 
 
 INSTALLATION
 ------------
 
-### Install from an Archive File
 
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
+### Install via Git
 
-You can then access the application through the following URL:
-
-~~~
-http://localhost/basic/web/
-~~~
+https://github.com/gimox/foxboApi.git
+php composer.phar update
 
 
-### Install via Composer
 
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
+### FOXBOX  configuration
 
-You can then install this application template using the following command:
-
-~~~
-php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta2"
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
+Enable MOD-REWRITE
+1) connect in ssh to foxbox: see http://www.smsfoxbox.it/documents/pdf/FoxBox-G25_Quick-Start-Guide.pdf
+2) copy the project folder to /mnt/flash/ named foxboxApi (the name must be foxbApi with camelcase) so now you have /mnt/flash/foxboxApi
+3) copy from projectdirectory/scripts/foxboxApi to /etc/apache2/site-available
+4) enable mod rewrite: sudo a2enmod rewrite 
+5) enable new virtualhost: a2ensite foxboxApi
+7) add right  assets: chown -R www-data:www-data /mnt/flash/foxboxApi/web/assets
+6) add right to runtime:  chown -R www-data:www-data /mnt/flash/foxboxApi/runtime
+5) sudo service apache2 restart
 
 
-CONFIGURATION
--------------
+SSL Version
+replace with:
+3) copy from projectdirectory/scripts/foxboxApiSSL to /etc/apache2/site-available
+5) enable new virtualhost: a2ensite foxboxApiSSL
 
-### Database
 
-Edit the file `config/db.php` with real data, for example:
+to test it go to:
+http://foxboxip:8081
+SSL
+https://foxboxip:8082
 
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
-];
-```
 
-**NOTE:** Yii won't create the database for you, this has to be done manually before you can access it.
 
-Also check and edit the other files in the `config/` directory to customize your application.
+IMPORTANT INFO
+--------------
+For security reason, Foxbox can't be in WWW. It must be under firewall and accessible only by application server in Https.
+
+this version is not in release yet, please don't use it now.
