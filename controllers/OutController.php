@@ -1,4 +1,9 @@
 <?php
+/**
+ * Send Controller
+ *
+ * @authors Giorgio Modoni <modogio@gmail.com>
+ */
 
 namespace app\controllers;
 
@@ -17,13 +22,15 @@ class OutController extends Controller
     /**
      * @var string foxbox spooler base path
      */
- //   public $spoolerPath = "/mnt/flash/spool";
+
+    public $spoolerPath = "/mnt/flash/spool";
+
 
 
     /**
      * @var string dev test base path
      */
-    public $spoolerPath = "/var/www/html/app/web/testfile";
+    // public $spoolerPath = "/var/www/html/app/web/testfile";
 
 
     /**
@@ -40,7 +47,6 @@ class OutController extends Controller
         ];
     }
 
-
     /**
      * Actions
      *
@@ -55,7 +61,13 @@ class OutController extends Controller
         ];
     }
 
-
+    /**
+     * Send
+     * main function for sms send
+     * check validation and prepare to send SMS
+     *
+     * @return array
+     */
     public function actionSend()
     {
         $model  = new Send();
@@ -68,18 +80,26 @@ class OutController extends Controller
             $this->saveToFile($stream, $modem);
 
             return [
-                'status'  => 1,
+                'status'  => 10,
                 'message' => 'saved',
+                'number'  => $model->to
             ];
         }
 
         return [
-            'status'  => 2,
-            'message' => $model->getFirstErrors()
+            'status'  => 101,
+            'message' => $model->getFirstErrors(),
+            'number'  => $model->to
         ];
     }
 
-
+    /**
+     * createStream
+     * Create stream file from model data
+     *
+     * @param $model
+     * @return string
+     */
     protected function createStream($model)
     {
         $stream = '';
@@ -105,12 +125,18 @@ class OutController extends Controller
 
         $stream .= PHP_EOL . $model->text;
 
-
         return $stream;
-
     }
 
-
+    /**
+     * getModem
+     * set the endPoint (= modem) to save file
+     * if not specified modem is ALL and endPath is "outgoing"
+     * the modem dictionary is in app/config/params.php
+     *
+     * @param $model
+     * @return string
+     */
     protected function getModem($model)
     {
         if ($model->modem == 'ALL') {
@@ -120,14 +146,20 @@ class OutController extends Controller
         return '/' . $model->modem;
     }
 
-
+    /**
+     * saveToFile
+     * save the stream to endPoint(=modem)
+     * the system fire the sms automatically
+     *
+     * @param $stream
+     * @param $modem
+     */
     protected function saveToFile($stream, $modem)
     {
-        $tmpfname = tempnam($this->spoolerPath.$modem, 'fapi');
+        $tmpfname = tempnam($this->spoolerPath . $modem, 'fapi');
         $handle   = fopen($tmpfname, "wb");
         fwrite($handle, $stream);
         fclose($handle);
     }
-
 
 }

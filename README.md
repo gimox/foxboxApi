@@ -78,6 +78,18 @@ https://foxboxip:8082
 
 
 
+
+### APPLICATION CONFIGURATION
+
+before start using webservice, please configure app according to your hw.
+
+Open /mnt/flash/foxboxApi/config/params.php and change the params:
+
+
+
+
+
+
 IMPORTANT INFO
 --------------
 For security reason, Foxbox can't be in WWW. It must be under firewall and accessible only by application server in Https.
