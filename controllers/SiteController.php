@@ -72,7 +72,7 @@ class SiteController extends Controller
     {
         $key = \Yii::$app->params['apiKey'];
 
-        return $this->render('apiKey', [
+        return $this->render('apikey', [
             'key' => $key
         ]);
 
