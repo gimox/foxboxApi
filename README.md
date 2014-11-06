@@ -56,6 +56,9 @@ INSTALLATION
 8. sudo service apache2 restart
 9. change a config option in /etc/smsd.conf  -> set: trust_outgoing = no (line 25) 
 10. /etc/init.d/smstools restart
+11. add permision to folder: chowm -R root:www-data /mnt/flash/spool/outgoing and 
+12. add permission to GSM1 folder:  chowm -R root:www-data /mnt/flash/spool/GSM1
+13. add permission to GSM2 folder:  chowm -R root:www-data /mnt/flash/spool/GSM2
 
 SSL Version
 replace step with:

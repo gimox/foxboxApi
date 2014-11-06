@@ -17,12 +17,13 @@ class OutController extends Controller
     /**
      * @var string foxbox spooler base path
      */
-    public $spoolerPath = "/mnt/flash/spool/outgoing";
+ //   public $spoolerPath = "/mnt/flash/spool";
+
 
     /**
      * @var string dev test base path
      */
-    //public $spoolerPath = "/var/www/html/app/web/testfile";
+    public $spoolerPath = "/var/www/html/app/web/testfile";
 
 
     /**
@@ -63,12 +64,12 @@ class OutController extends Controller
         if ($model->load($params) && $model->validate()) {
 
             $stream = $this->createStream($model);
-            $this->saveToFile($stream);
+            $modem  = $this->getModem($model);
+            $this->saveToFile($stream, $modem);
 
             return [
                 'status'  => 1,
                 'message' => 'saved',
-                'stream'=>$stream
             ];
         }
 
@@ -86,23 +87,23 @@ class OutController extends Controller
         $stream .= 'To: ' . $model->to . PHP_EOL;
         $stream .= 'Alphabet: ' . $model->alphabet . PHP_EOL;
 
-        if($model->flash) {
+        if ($model->flash) {
             $stream .= 'Flash: ' . $model->flash . PHP_EOL;
         }
 
-        if($model->smsc) {
+        if ($model->smsc) {
             $stream .= 'SMSC: ' . $model->smsc . PHP_EOL;
         }
 
-        if($model->report) {
+        if ($model->report) {
             $stream .= 'Report: ' . $model->report . PHP_EOL;
         }
 
-        if($model->autosplit) {
+        if ($model->autosplit) {
             $stream .= 'Autosplit: ' . $model->autosplit . PHP_EOL;
         }
 
-        $stream .= PHP_EOL.$model->text;
+        $stream .= PHP_EOL . $model->text;
 
 
         return $stream;
@@ -110,10 +111,20 @@ class OutController extends Controller
     }
 
 
-    protected function saveToFile($stream)
+    protected function getModem($model)
     {
-        $tmpfname = tempnam($this->spoolerPath,'fapi');
-        $handle = fopen($tmpfname, "wb");
+        if ($model->modem == 'ALL') {
+            return '/outgoing';
+        }
+
+        return '/' . $model->modem;
+    }
+
+
+    protected function saveToFile($stream, $modem)
+    {
+        $tmpfname = tempnam($this->spoolerPath.$modem, 'fapi');
+        $handle   = fopen($tmpfname, "wb");
         fwrite($handle, $stream);
         fclose($handle);
     }

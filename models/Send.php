@@ -11,12 +11,13 @@ class Send extends Model
 {
     public $from;
     public $to;
-    public $alphabet;
+    public $alphabet; //default ISO
     public $smsc;
     public $report;
     public $autosplit;
     public $text;
     public $flash;
+    public $modem; //default ALL
 
     /**
      * @return array the validation rules.
@@ -26,15 +27,19 @@ class Send extends Model
         return [
 
             [['from', 'to', 'text'], 'required'],
-            [['from'], 'string', 'length' => [1, 30]],
-            [['to'], 'string', 'length' => [3, 30]],
+            ['from', 'string', 'length' => [1, 30]],
+            ['to', 'string', 'length' => [3, 30]],
             ['report', 'in', 'range' => ['YES', 'NO']],
             ['flash', 'in', 'range' => ['YES', 'NO']],
             ['alphabet', 'in', 'range' => ['ISO', 'GSM', 'UCS', 'BINARY']],
-            [['alphabet'],'default','value'=>'ISO'],
-            [['autosplit'], 'number'],
-            [['text'], 'string', 'length' => [1, 160]],
-            [['smsc'], 'string', 'length' => [2, 30]],
+            ['autosplit', 'number'],
+            ['text', 'string', 'length' => [1, 160]],
+            ['smsc', 'string', 'length' => [2, 30]],
+            ['modem', 'string', 'length' => [2, 30]],
+
+            ['alphabet', 'default', 'value' => 'ISO'],
+            ['modem', 'in', 'range' =>\Yii::$app->params['modem']],
+            ['modem', 'default', 'value' => 'ALL'],
         ];
     }
 
@@ -50,7 +55,9 @@ class Send extends Model
             'alphabet'  => 'alphabet',
             'autosplit' => 'autosplit',
             'text'      => 'text',
-            'smsc'      => 'SMSC'
+            'smsc'      => 'SMSC',
+            'modem'     => 'Modem',
+            'flash'     => 'flash'
         ];
     }
 
