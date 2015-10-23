@@ -33,7 +33,7 @@ class Send extends Model
             ['flash', 'in', 'range' => ['YES', 'NO']],
             ['alphabet', 'in', 'range' => ['ISO', 'GSM', 'UCS', 'BINARY']],
             ['autosplit', 'number'],
-            ['text', 'string', 'length' => [1, 160]],
+            ['text', 'string', 'length' => [1, 315]],
             ['smsc', 'string', 'length' => [2, 30]],
             ['modem', 'string', 'length' => [2, 30]],
 
